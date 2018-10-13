@@ -1,14 +1,14 @@
 #include <DS1302.h> //RTC 모듈 포함
 //RTC 핀 정의
-int sckPin =  A4; 
-int IOPin = A3;  
-int rstPin = A2;
+int sckPin =  A5; 
+int IOPin = A4;  
+int rstPin = A3;
 //버튼 핀 정의
 int realButton = A0;    
 int fakeButton = A1; 
 //LED 핀 정의
-int realLED = A6;
-int fakeLED = A5;
+int realLED = 12;                     ;
+int fakeLED = 13;
 //RTC 클래스 정의
 DS1302 rtc(rstPin, IOPin, sckPin);
 //Time 클래스 정의
@@ -51,24 +51,23 @@ void setup()
   //난수 시드 입력
   randomSeed(A0);
 //초기 시간 설정 코드(시간 안 맞을 때 사용할 것!)
-//  rtc.setDOW(SATURDAY);
-//  rtc.setTime(19,07,5 );
-//  rtc.setDate(13,10,2018); 
+//  rtc.setDOW(SUNDAY);
+//  rtc.setTime(4,32,5);
+//  rtc.setDate(14,10,2018); 
 }
  
 void loop()
 {
-  if(digitalRead(realButton) == HIGH){ //현재 시간을 불러오는 버튼이 눌렸을 때
+  if(digitalRead(realButton) == LOW){ //현재 시간을 불러오는 버튼이 눌렸을 때
      fakeFlag=false; //현재 시간 모드로 설정
      t=getRealTime(); //현재 시간을 Time 클래스에 저장
-     digitalWrite(realLED, HIGH);
+     digitalWrite(realLED, LOW);
      digitalWrite(fakeLED, LOW);
-     
-  }else if(digitalRead(fakeButton) == HIGH){ //가짜 시간을 불러오는 버튼이 눌렸을 때
+  }else if(digitalRead(fakeButton) == LOW){ //가짜 시간을 불러오는 버튼이 눌렸을 때
      fakeFlag=true; //가짜 시간 모드로 설정
      randNum = random(3); //0,1,2 중 랜덤으로 수를 저장
      t=getRandomTime(randNum); //가짜 시간을 Time 클래스에 저장
-     digitalWrite(realLED, LOW);
+     digitalWrite(realLED, HIGH);
      digitalWrite(fakeLED, HIGH);
   }else{ //두 버튼 모두 눌리지 않았을 때
     if(fakeFlag){ //가짜 시간으로 동작하고 있을 때
