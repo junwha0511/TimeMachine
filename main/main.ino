@@ -173,7 +173,7 @@ Time getLaterTime(){ //10분 느린 시간을 가져오는 메소드
     if(t.hour!=23){ //hour가 23이 아니면
       t.hour+=1; //hour를 1 증가시킴
     }else if(t.hour==23){ //hour가 23이면
-      t.hour=               0; //hour가 0이 됨
+      t.hour=0; //hour가 0이 됨
     }
   }
   return t; //t를 리턴
